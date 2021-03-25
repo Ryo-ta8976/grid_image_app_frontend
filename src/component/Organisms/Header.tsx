@@ -12,7 +12,7 @@ export default function Header(): JSX.Element {
       }}
     >
         <SearchBox paper_width='230' place_holder='Search by name' display='inline-block' />
-        <BasicModal button_message='写真を追加' title='Add a new photo' label={['Label', 'Photo URL']} submit_button_message='Submit' />
+        <BasicModal index={0} type='add' button_message='写真を追加' title='Add a new photo' label={['Label', 'Photo URL']} submit_button_message='Submit' />
     </Box>
   );
 }

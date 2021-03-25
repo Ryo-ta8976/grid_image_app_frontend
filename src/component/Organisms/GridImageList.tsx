@@ -6,6 +6,7 @@ import ImageListItem from '@material-ui/core/ImageListItem'
 import ImageListItemBar from '@material-ui/core/ImageListItemBar'
 import axios from 'axios'
 import BasicModal from './BasicModal'
+import {useDispatch, useSelector} from 'react-redux'
 
 const useStyles = makeStyles({
   root: {
@@ -33,8 +34,13 @@ const useStyles = makeStyles({
   },
 })
 
-export default function GridImageList(): JSX.Element {
+type Props = {
+  images: {label: string, url: string}[]
+}
+
+export default function GridImageList(props: {images: {label: string, url: string, id: number}[]}): JSX.Element {
   const classes = useStyles()
+  // const images = useSelector(state => state.images)
 
   // useEffect(() => {
   //   axios.get('https://google.com/v1/images/1')
@@ -45,18 +51,18 @@ export default function GridImageList(): JSX.Element {
   return (
     <div className={classes.root}>
       <ImageList variant="masonry" cols={3} gap={8}>
-        {itemData.map((item) => (
-          <ImageListItem key={item.img} className={classes.image_item} >
+        {props.images.map((item) => (
+          <ImageListItem key={item.id} className={classes.image_item} >
             <img
-              srcSet={`${item.img}?w=161&fit=crop&auto=format 1x,
-                ${item.img}?w=161&fit=crop&auto=format&dpr=2 2x`}
-              alt={item.title}
+              srcSet={`${item.url}?w=161&fit=crop&auto=format 1x,
+                ${item.url}?w=161&fit=crop&auto=format&dpr=2 2x`}
+              alt={item.label}
               className={classes.img}
             />
             <ImageListItemBar
-              title={item.title}
+              title={item.label}
               actionIcon={
-                <BasicModal button_message='delete' title='写真を消しますか？' label={['password']} submit_button_message='Delete' />
+                <BasicModal index={item.id} type='delete' button_message='delete' title='写真を消しますか？' label={['password']} submit_button_message='Delete' />
               }
               className={classes.image_item_bar}
             />

@@ -5,6 +5,9 @@ import Typography from '@material-ui/core/Typography'
 import Modal from '@material-ui/core/Modal'
 import TextField from '@material-ui/core/TextField'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { getImages } from '../../store/actions/AppActions'
+
 
 interface Props {
   index: number;
@@ -21,6 +24,7 @@ export default function BasicModal(props: Props): JSX.Element {
   const [password, setPassword] = React.useState('')
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
+  const dispatch = useDispatch()
 
   function handleSubmit(type: string, index: number){
     if(type === 'add'){
@@ -30,16 +34,18 @@ export default function BasicModal(props: Props): JSX.Element {
       }
       axios.post('/images', { params })
       .then((res)=>{
-        console.log(res.data)
+        dispatch(getImages())
         //notification
-        //外部のget関数をよぶ
-        //getのレスをstateのimagesに入れる
       })
     }else{
-      console.log(index)
+      if(password != 'admin'){
+        //notification
+        return
+      }
       axios.delete(`/images/${index}`)
       .then((res)=>{
-        console.log(res.data)
+        dispatch(getImages())
+        //notification
       })
     }
     setOpen(false)

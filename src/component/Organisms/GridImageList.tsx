@@ -6,6 +6,7 @@ import ImageListItem from '@material-ui/core/ImageListItem'
 import ImageListItemBar from '@material-ui/core/ImageListItemBar'
 import axios from 'axios'
 import BasicModal from './BasicModal'
+import {useDispatch, useSelector} from 'react-redux'
 
 const useStyles = makeStyles({
   root: {
@@ -39,6 +40,7 @@ type Props = {
 
 export default function GridImageList(props: {images: {label: string, url: string, id: number}[]}): JSX.Element {
   const classes = useStyles()
+  // const images = useSelector(state => state.images)
 
   // useEffect(() => {
   //   axios.get('https://google.com/v1/images/1')

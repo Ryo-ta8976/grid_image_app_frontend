@@ -11,6 +11,8 @@ export default function(state = initialState, action: any){
           return { isFetching: false, images: action.data }
         case 'GET_IMAGES_FAILURE':
           return { isFetching: false, images: action.error}
+        case 'SEARCH_IMAGES':
+          return { ...state, images: action.data}
         default:
           return state
       }

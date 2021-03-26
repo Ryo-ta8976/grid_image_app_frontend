@@ -2,6 +2,10 @@ import * as React from 'react'
 import Paper from '@material-ui/core/Paper'
 import InputBase from '@material-ui/core/InputBase'
 import SearchButton from '../Atoms/SearchButton'
+import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { searchImages } from '../../store/actions/AppActions'
+
 
 interface Props {
   paper_width: string;
@@ -10,6 +14,28 @@ interface Props {
 }
 
 export default function CustomizedInputBase(props: Props): JSX.Element {
+  const [label, setLabel] = React.useState('')
+  const dispatch = useDispatch()
+
+  function handleSubmit(){
+    const params = {
+      label: label
+    }
+    console.log(label)
+    axios.get('/images/search', { params })
+      .then((res) => {
+        console.log(res.data)
+        dispatch(searchImages(res.data))
+        // dispatch(getImages())
+        //notification
+      })
+  }
+
+  function handleChange(e: any){
+    setLabel(e.target.value)
+    console.log(label)
+  }
+
   return (
     <Paper
       component="form"
@@ -19,8 +45,9 @@ export default function CustomizedInputBase(props: Props): JSX.Element {
         sx={{ ml: 1, flex: 1 }}
         placeholder={props.place_holder}
         inputProps={{ 'aria-label': props.place_holder }}
+        onChange={handleChange}
       />
-      <SearchButton padding='10px' />
+      <SearchButton padding='10px' onClick={handleSubmit} />
     </Paper>
   );
 }

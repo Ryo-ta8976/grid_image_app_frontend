@@ -32,4 +32,11 @@ export const getImages = () => {
         return dispatch(getImagesFailure(err));
       }
     }
+}
+
+export const searchImages = (data: any) => {
+  return {
+    type: 'SEARCH_IMAGES',
+    data
   }
+}

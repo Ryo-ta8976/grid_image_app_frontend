@@ -21,19 +21,14 @@ export default function CustomizedInputBase(props: Props): JSX.Element {
     const params = {
       label: label
     }
-    console.log(label)
     axios.get('/images/search', { params })
       .then((res) => {
-        console.log(res.data)
         dispatch(searchImages(res.data))
-        // dispatch(getImages())
-        //notification
       })
   }
 
   function handleChange(e: any){
     setLabel(e.target.value)
-    console.log(label)
   }
 
   return (

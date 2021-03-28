@@ -35,7 +35,7 @@ export default function BasicModal(props: Props): JSX.Element {
         url: url
       }
       axios.post('/images', { params })
-      .then((res)=>{
+      .then(()=>{
         dispatch(getImages())
         addToast('画像を投稿しました', { appearance: 'success', autoDismiss: true })
       })
@@ -46,7 +46,7 @@ export default function BasicModal(props: Props): JSX.Element {
         return
       }
       axios.delete(`/images/${index}`)
-      .then((res)=>{
+      .then(()=>{
         dispatch(getImages())
         addToast('画像を削除しました', { appearance: 'success', autoDismiss: true })
       })
@@ -54,7 +54,7 @@ export default function BasicModal(props: Props): JSX.Element {
     setOpen(false)
   }
 
-  function handleChange(e: any, key: string){
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, key: string){
     if(key == 'Label'){
       setLabel(e.target.value)
     }else if(key == 'Photo URL'){

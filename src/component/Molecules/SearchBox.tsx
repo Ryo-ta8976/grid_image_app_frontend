@@ -27,7 +27,7 @@ export default function CustomizedInputBase(props: Props): JSX.Element {
       })
   }
 
-  function handleChange(e: any){
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>){
     setLabel(e.target.value)
   }
 

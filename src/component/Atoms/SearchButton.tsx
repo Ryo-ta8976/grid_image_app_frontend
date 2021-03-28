@@ -4,7 +4,7 @@ import SearchIcon from '@material-ui/icons/Search'
 
 interface Props {
   padding: string;
-  onClick: any;
+  onClick: () => void;
 }
 
 export default function SearchButton(props: Props): JSX.Element {

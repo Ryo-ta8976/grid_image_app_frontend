@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { getImages } from '../../store/actions/AppActions'
+import { useToasts } from 'react-toast-notifications'
 
 
 interface Props {
@@ -25,6 +26,7 @@ export default function BasicModal(props: Props): JSX.Element {
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
   const dispatch = useDispatch()
+  const { addToast } = useToasts();
 
   function handleSubmit(type: string, index: number){
     if(type === 'add'){
@@ -33,25 +35,26 @@ export default function BasicModal(props: Props): JSX.Element {
         url: url
       }
       axios.post('/images', { params })
-      .then((res)=>{
+      .then(()=>{
         dispatch(getImages())
-        //notification
+        addToast('画像を投稿しました', { appearance: 'success', autoDismiss: true })
       })
     }else{
       if(password != 'admin'){
-        //notification
+        addToast('パスワードが違います', { appearance: 'error', autoDismiss: true })
+        setOpen(false)
         return
       }
       axios.delete(`/images/${index}`)
-      .then((res)=>{
+      .then(()=>{
         dispatch(getImages())
-        //notification
+        addToast('画像を削除しました', { appearance: 'success', autoDismiss: true })
       })
     }
     setOpen(false)
   }
 
-  function handleChange(e: any, key: string){
+  function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, key: string){
     if(key == 'Label'){
       setLabel(e.target.value)
     }else if(key == 'Photo URL'){

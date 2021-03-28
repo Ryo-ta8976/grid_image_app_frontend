@@ -1,19 +1,19 @@
 import axios from 'axios'
 
-export const getImagesRequest = () => {
+export const getImagesRequest = (): { type: string } => {
     return {
       type: 'GET_IMAGES_REQUEST'
     }
 }
 
-export const getImagesSuccess = (data: any) => {
+export const getImagesSuccess = (data: []): { type: string, data: []} => {
       return {
         type: 'GET_IMAGES_SUCCESS',
         data
       }
 }
 
-export const getImagesFailure = (error: any) => {
+export const getImagesFailure = (error: Error): { type: string, error: Error } => {
       return {
         type: 'GET_IMAGES_SUCCESS',
         error
@@ -34,7 +34,7 @@ export const getImages = () => {
     }
 }
 
-export const searchImages = (data: any) => {
+export const searchImages = (data: []): { type: string, data: []} => {
   return {
     type: 'SEARCH_IMAGES',
     data

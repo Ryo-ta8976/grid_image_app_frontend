@@ -7,14 +7,8 @@ import ImageListItemBar from '@material-ui/core/ImageListItemBar'
 import BasicModal from './BasicModal'
 
 const useStyles = makeStyles({
-  root: {
-    width: 500,
-    height: 450,
-    overflowY: 'scroll',
-    margin: '0, auto'
-  },
   img: {
-    borderRadius: 10,
+    borderRadius: 10
   },
   icon: {
     color: 'rgba(255, 255, 255, 0.54)',
@@ -36,10 +30,9 @@ export default function GridImageList(props: {images: {label: string, url: strin
   const classes = useStyles()
 
   return (
-    <div className={classes.root}>
-      <ImageList variant="masonry" cols={3} gap={8}>
+      <ImageList sx={{ 'width': '100%', 'height': '60%', 'overflow': 'scroll' }} variant="masonry" cols={3} gap={8}>
         {props.images.map((item) => (
-          <ImageListItem key={item.id} className={classes.image_item} >
+          <ImageListItem key={item.id} className={classes.image_item} sx={{ width: '100%', height: 'auto' }} >
             <img
               srcSet={`${item.url}?w=161&fit=crop&auto=format 1x,
                 ${item.url}?w=161&fit=crop&auto=format&dpr=2 2x`}
@@ -49,13 +42,12 @@ export default function GridImageList(props: {images: {label: string, url: strin
             <ImageListItemBar
               title={item.label}
               actionIcon={
-                <BasicModal index={item.id} type='delete' button_message='delete' title='写真を消しますか？' label={['password']} submit_button_message='Delete' />
+                <BasicModal color='secondary' index={item.id} type='delete' button_message='delete' title='写真を消しますか？' label={['password']} submit_button_message='Delete' />
               }
               className={classes.image_item_bar}
             />
           </ImageListItem>
         ))}
       </ImageList>
-    </div>
   );
 }

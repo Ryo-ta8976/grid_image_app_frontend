@@ -17,6 +17,7 @@ interface Props {
   title: string;
   label: string[];
   submit_button_message: string;
+  color: "inherit" | "primary" | "secondary" | undefined;
 }
 export default function BasicModal(props: Props): JSX.Element {
   const [open, setOpen] = React.useState(false)
@@ -66,7 +67,7 @@ export default function BasicModal(props: Props): JSX.Element {
 
   return (
     <div>
-      <Button variant="contained" onClick={handleOpen} sx={{ display: 'inline-block' }}>{props.button_message}</Button>
+      <Button color={props.color} variant="contained" onClick={handleOpen} sx={{ display: 'inline-block' }}>{props.button_message}</Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -84,7 +85,7 @@ export default function BasicModal(props: Props): JSX.Element {
           boxShadow: 24,
           p: 4,
         }}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
+          <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ mb: '15px'}}>
             {props.title}
           </Typography>
           {props.label.map((item: string) =>
@@ -92,13 +93,15 @@ export default function BasicModal(props: Props): JSX.Element {
               key={item}
               id="outlined-basic"
               label={item}
-              sx={{ display: 'block' }}
+              sx={{ display: 'block', mb:'10px' }}
               fullWidth
               onChange={(e) => handleChange(e, item)}
             />
           )}
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button variant="contained" onClick={() => handleSubmit(props.type, props.index)}>{props.submit_button_message}</Button>
+          <Box sx={{ textAlign: "right" }}>
+            <Button color={props.color} sx={{ mr: "5px" }} onClick={handleClose}>Cancel</Button>
+            <Button color={props.color} sx={{ mr: "0px" }} variant="contained" onClick={() => handleSubmit(props.type, props.index)}>{props.submit_button_message}</Button>
+          </Box>
         </Box>
       </Modal>
     </div>

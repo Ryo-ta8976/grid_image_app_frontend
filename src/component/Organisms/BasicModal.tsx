@@ -43,7 +43,7 @@ export default function BasicModal(props: Props): JSX.Element {
         addToast('画像を投稿しました', { appearance: 'success', autoDismiss: true })
       })
     }else{
-      if(password != 'admin'){
+      if(password !== 'admin'){
         addToast('パスワードが違います', { appearance: 'error', autoDismiss: true })
         setOpen(false)
         return
@@ -58,9 +58,9 @@ export default function BasicModal(props: Props): JSX.Element {
   }
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, key: string){
-    if(key == 'Label'){
+    if(key === 'Label'){
       setLabel(e.target.value)
-    }else if(key == 'Photo URL'){
+    }else if(key === 'Photo URL'){
       setUrl(e.target.value)
     }else{
       setPassword(e.target.value)

@@ -3,7 +3,7 @@ const initialState = {
     images: [],
 }
 
-export default function(state = initialState, action: any): any{
+export default function imagesReducer(state = initialState, action: any): any{
     switch (action.type) {
         case 'GET_IMAGES_REQUEST':
           return { isFetching: true, images: [] }

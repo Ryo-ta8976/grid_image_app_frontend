@@ -17,7 +17,7 @@ export default function Contents(): JSX.Element {
   const imagesList = useSelector((state: RooteState) => state.imagesList)
   useEffect(() => {
     dispatch(getImages())
-  }, [])
+  }, [dispatch])
 
   return (
     <div>

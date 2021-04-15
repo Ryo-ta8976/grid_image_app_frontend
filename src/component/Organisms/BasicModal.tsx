@@ -30,12 +30,14 @@ export default function BasicModal(props: Props): JSX.Element {
   const { addToast } = useToasts();
 
   function handleSubmit(type: string, index: number){
+    const apiURL = process.env.REACT_APP_API_URL
+
     if(type === 'add'){
       const params = {
         label: label,
         url: url
       }
-      axios.post('/images', { params })
+      axios.post(`${apiURL}/images`, { params })
       .then(()=>{
         dispatch(getImages())
         addToast('画像を投稿しました', { appearance: 'success', autoDismiss: true })
@@ -46,7 +48,7 @@ export default function BasicModal(props: Props): JSX.Element {
         setOpen(false)
         return
       }
-      axios.delete(`/images/${index}`)
+      axios.delete(`${apiURL}/images/${index}`)
       .then(()=>{
         dispatch(getImages())
         addToast('画像を削除しました', { appearance: 'success', autoDismiss: true })

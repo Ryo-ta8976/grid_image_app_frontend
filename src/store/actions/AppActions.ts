@@ -22,10 +22,12 @@ export const getImagesFailure = (error: Error): { type: string, error: Error } =
 
 
 export const getImages = () => {
+    const apiURL = process.env.REACT_APP_API_URL
+
     return async (dispatch: any) => {
       dispatch(getImagesRequest())
       try {
-        const res = await axios.get('/images');
+        const res = await axios.get(`${apiURL}/images`);
         return dispatch(getImagesSuccess(res.data));
       }
       catch (err) {
